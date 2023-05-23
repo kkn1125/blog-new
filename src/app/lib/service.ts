@@ -29,7 +29,7 @@ export async function getAllSlugNames() {
   return paths;
 }
 
-export async function getSlug() {
+export async function getSlugs() {
   const paths = sync(`${basePath}/*.mdx`);
   const pathList = paths.map((path) => {
     // holds the paths to the directory of the article
@@ -43,6 +43,7 @@ export async function getSlug() {
 }
 
 export async function getArticleFromSlug(slug: string) {
+  console.log("!!!!!!", slug);
   const articleDir = path.join(articlesPath, `${slug}.mdx`);
   // const source = execSync(`cat ${articleDir}`).toString('utf-8')
 
@@ -59,6 +60,13 @@ export async function getArticleFromSlug(slug: string) {
       ...Object.fromEntries(Object.entries(data).map(([k, v]) => [k, v || ""])),
     },
   };
+}
+
+export async function getAllBlogs() {
+  const blogs = await getSlugs();
+  return blogs.map(async (slug) => {
+    return await getArticleFromSlug(slug);
+  });
 }
 
 export async function getAllArticles() {

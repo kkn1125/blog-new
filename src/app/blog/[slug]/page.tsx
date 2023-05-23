@@ -28,28 +28,26 @@ const components = {
   },
 };
 
-export default function Page({ params }: any) {
+export default function Page(props: any) {
   const [data, setData] = useState<any>(null);
+  console.log(props);
 
-  useEffect(() => {
-    (async () => {
-      const { source } = await getData(params.slug);
-      setData(source);
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     const { source } = await getData(params.slug);
+  //     setData(source);
+  //   })();
+  // }, []);
 
   return (
-    data && (
-      <Box sx={{
-      }}>
-        <div>{(data as any)?.frontmatter?.title || ""}</div>
-        <MDXRemote {...data} components={components as MDXComponents} />
-      </Box>
-    )
+    <Box sx={{}}>
+      <div>{(data as any)?.frontmatter?.title || ""}</div>
+      <MDXRemote {...data} components={components as MDXComponents} />
+    </Box>
   );
 }
 
-async function getData(slug: string) {
+export const generateStaticParams = async (slug: string) => {
   const slugs = await fetch(`http://localhost:3000/api/blog/slug/${slug}`);
   const post = await slugs.json();
   const mdxSource = await serialize(post.content || "", {
@@ -64,4 +62,4 @@ async function getData(slug: string) {
     post,
     source: mdxSource,
   };
-}
+};

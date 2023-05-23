@@ -23,7 +23,7 @@ export default function SideBar() {
     <List
       sx={{
         position: "sticky",
-        top:0,
+        top: 69,
         width: "100%",
         bgcolor: "background.paper",
       }}

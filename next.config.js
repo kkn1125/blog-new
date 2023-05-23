@@ -48,6 +48,7 @@ const nextConfig = {
 
     return config;
   },
+  trailingSlash: true,
   transpilePackages: ["react-syntax-highlighter"],
   // webpack: (config) => {
   //   config.resolve.fallback = { fs: false };

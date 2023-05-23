@@ -1,7 +1,9 @@
 "use client";
 
-import { Stack, Box } from "@mui/material";
+import { Stack, Box, Toolbar } from "@mui/material";
 import React from "react";
+import Footer from "./Footer";
+import Header from "./Header";
 import SideBar from "./SideBar";
 
 const sidebarSize = {
@@ -16,24 +18,36 @@ function BaseLayout({
 }) {
   return (
     <Stack
-      direction='row'
       sx={{
-        width: "100%",
+        height: "100%",
       }}>
-      <Box
-        sx={{
-          position: "relative",
-          minWidth: sidebarSize.min,
-          maxWidth: sidebarSize.max,
-        }}>
-        <SideBar />
-      </Box>
+      <Header />
+      <Toolbar />
       <Stack
+        direction='row'
         sx={{
           width: "100%",
+          flex: 1,
         }}>
-        {children}
+        <Box
+          sx={{
+            position: "relative",
+            minWidth: sidebarSize.min,
+            maxWidth: sidebarSize.max,
+            zIndex: 500,
+          }}>
+          <SideBar />
+        </Box>
+        <Box
+          sx={{
+            width: "70%",
+            mx: "auto",
+          }}>
+          <Toolbar />
+          {children}
+        </Box>
       </Stack>
+      <Footer />
     </Stack>
   );
 }
