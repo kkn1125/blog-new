@@ -24,7 +24,9 @@ export default function Home(props: any) {
 }
 
 async function getData() {
-  const slugs = await fetch(`http://localhost:3000/api/blog/`);
+  const slugs = await fetch(`http://localhost:3000/api/blog/`, {
+    cache: "force-cache",
+  });
   const post = await slugs.json();
   return {
     posts: post,

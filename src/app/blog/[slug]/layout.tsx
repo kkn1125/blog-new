@@ -9,7 +9,9 @@ export default function Layout({ children }: { children: React.ReactElement }) {
 }
 
 export async function generateStaticParams() {
-  const slugs = await fetch(`http://localhost:3000/api/blog/`);
+  const slugs = await fetch(`http://localhost:3000/api/blog/`, {
+    cache: "force-cache",
+  });
   const posts = await slugs.json();
 
   return posts.map((post: any) => ({

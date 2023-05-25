@@ -54,7 +54,9 @@ export default function Page(props: any) {
 }
 
 async function getData(slug: string) {
-  const res = await fetch(`http://localhost:3000/api/slug/${slug}`);
+  const res = await fetch(`http://localhost:3000/api/slug/${slug}`, {
+    cache: "force-cache",
+  });
   const posts = await res.json();
   console.log("posts", posts);
   console.log("posts", posts.content);
