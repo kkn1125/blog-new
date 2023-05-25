@@ -1,5 +1,6 @@
 "use client";
 
+import { BASEPATH } from "@/util/global";
 import { Box, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
@@ -24,7 +25,7 @@ export default function Home(props: any) {
 }
 
 async function getData() {
-  const slugs = await fetch(`http://localhost:3000/api/blog/`, {
+  const slugs = await fetch(`http://${BASEPATH}:3000/api/blog/`, {
     cache: "force-cache",
   });
   const post = await slugs.json();

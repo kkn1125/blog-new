@@ -2,6 +2,7 @@
 
 export const dynamic = "error";
 
+import { BASEPATH } from "@/util/global";
 import { Box, Container, Stack } from "@mui/material";
 import { MDXComponents } from "mdx/types";
 import { MDXRemote } from "next-mdx-remote";
@@ -54,7 +55,7 @@ export default function Page(props: any) {
 }
 
 async function getData(slug: string) {
-  const res = await fetch(`http://localhost:3000/api/slug/${slug}`, {
+  const res = await fetch(`http://${BASEPATH}:3000/api/slug/${slug}`, {
     cache: "force-cache",
   });
   const posts = await res.json();

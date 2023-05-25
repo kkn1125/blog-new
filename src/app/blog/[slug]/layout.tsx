@@ -1,6 +1,6 @@
 import PostLayout from "@/components/PostLayout";
 import { getArticleFromSlug } from "@/lib/service";
-import { BRAND_DESC, BRAND_NAME } from "@/util/global";
+import { BASEPATH, BRAND_DESC, BRAND_NAME } from "@/util/global";
 import { Metadata } from "next";
 import React from "react";
 
@@ -9,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactElement }) {
 }
 
 export async function generateStaticParams() {
-  const slugs = await fetch(`http://localhost:3000/api/blog/`, {
+  const slugs = await fetch(`http://${BASEPATH}:3000/api/blog/`, {
     cache: "force-cache",
   });
   const posts = await slugs.json();
