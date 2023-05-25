@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = "error";
+
 import { Box, Container, Stack } from "@mui/material";
 import { MDXComponents } from "mdx/types";
 import { MDXRemote } from "next-mdx-remote";
@@ -30,36 +32,43 @@ const components = {
 
 export default function Page(props: any) {
   const [data, setData] = useState<any>(null);
-  console.log(props);
+  const { params } = props;
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const { source } = await getData(params.slug);
-  //     setData(source);
-  //   })();
-  // }, []);
+  useEffect(() => {
+    (async () => {
+      const { source } = (await getData(params.slug)) as any;
+      setData(source);
+    })();
+  }, []);
 
   return (
     <Box sx={{}}>
-      <div>{(data as any)?.frontmatter?.title || ""}</div>
-      <MDXRemote {...data} components={components as MDXComponents} />
+      {data && (
+        <>
+          <div>{data?.frontmatter?.title || ""}</div>
+          <MDXRemote {...data} components={components as MDXComponents} />
+        </>
+      )}
     </Box>
   );
 }
 
-export const generateStaticParams = async (slug: string) => {
-  const slugs = await fetch(`http://localhost:3000/api/blog/slug/${slug}`);
-  const post = await slugs.json();
-  const mdxSource = await serialize(post.content || "", {
-    parseFrontmatter: true,
-    mdxOptions: {
-      development: true,
-    },
-  });
+async function getData(slug: string) {
+  const res = await fetch(`http://localhost:3000/api/slug/${slug}`);
+  const posts = await res.json();
+  console.log("posts", posts);
+  console.log("posts", posts.content);
+  const mdxSource =
+    (await serialize(posts.content || "", {
+      // parseFrontmatter: true,
+      mdxOptions: {
+        development: process.env.NODE_ENV !== "production",
+      },
+    })) || {};
 
-  mdxSource.frontmatter = post.frontmatter;
+  mdxSource.frontmatter = posts.frontmatter;
+
   return {
-    post,
     source: mdxSource,
   };
-};
+}

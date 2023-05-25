@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 
 export default function Home(props: any) {
   const [blogs, setBlogs] = useState([]);
-  console.log(props);
 
   useEffect(() => {
     (async () => {

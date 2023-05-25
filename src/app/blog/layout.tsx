@@ -1,5 +1,4 @@
-import PostLayout from "@/app/components/PostLayout";
-import { getArticleFromSlug } from "@/app/lib/service";
+import PostLayout from "@/components/PostLayout";
 import { BRAND_NAME } from "@/util/global";
 import { Metadata } from "next";
 import React from "react";

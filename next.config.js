@@ -21,33 +21,33 @@ const nextConfig = {
   //   emotion: true,
   // },
   reactStrictMode: true,
-  experimental: {
-    // swcTraceProfiling: true,
-    mdxRs: true,
-    appDir: true,
-    turbo: {
-      loaders: {
-        // Option format
-        ".md": [
-          {
-            loader: "@mdx-js/loader",
-            options: {
-              format: "md",
-            },
-          },
-        ],
-        // Option-less format
-        ".mdx": ["@mdx-js/loader"],
-      },
-    },
-  },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.fallback = { fs: false };
-    }
+  // experimental: {
+  //   // swcTraceProfiling: true,
+  //   mdxRs: true,
+  //   appDir: true,
+  //   turbo: {
+  //     loaders: {
+  //       // Option format
+  //       ".md": [
+  //         {
+  //           loader: "@mdx-js/loader",
+  //           options: {
+  //             format: "md",
+  //           },
+  //         },
+  //       ],
+  //       // Option-less format
+  //       ".mdx": ["@mdx-js/loader"],
+  //     },
+  //   },
+  // },
+  // webpack: (config, { isServer }) => {
+  //   if (!isServer) {
+  //     config.resolve.fallback = { fs: false };
+  //   }
 
-    return config;
-  },
+  //   return config;
+  // },
   trailingSlash: true,
   transpilePackages: ["react-syntax-highlighter"],
   // webpack: (config) => {

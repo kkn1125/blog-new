@@ -2,7 +2,7 @@ import {
   getAllArticles,
   getAllBlogs,
   getArticleFromSlug,
-} from "@/app/lib/service";
+} from "@/lib/service";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request, { params }: any) {

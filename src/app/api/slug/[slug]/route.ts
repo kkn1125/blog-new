@@ -1,5 +1,8 @@
-import { getArticleFromSlug } from "@/app/lib/service";
+import { getAllArticles, getArticleFromSlug } from "@/lib/service";
 import { NextResponse } from "next/server";
+
+export const dynamic = "auto";
+export const dynamicParams = true;
 
 export async function GET(request: Request, { params }: any) {
   // const articlesPath = path.join(process.cwd(), basePath, `${params.slug}`);
@@ -12,6 +15,18 @@ export async function GET(request: Request, { params }: any) {
 
   //   return slug;
   // });
-  const post = await getArticleFromSlug(params.slug);
-  return NextResponse.json({ ...post });
+  try {
+    const post = await getArticleFromSlug(params.slug);
+    return NextResponse.json({ ...post });
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function generateStaticParams() {
+  const posts = await getAllArticles();
+
+  return posts.map((post: any) => ({
+    slug: post.slug.replace(/\/+/, "").trim(),
+  }));
 }

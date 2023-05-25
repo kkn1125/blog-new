@@ -43,7 +43,7 @@ export async function getSlugs() {
 }
 
 export async function getArticleFromSlug(slug: string) {
-  console.log("!!!!!!", slug);
+  if (!slug || decodeURIComponent(slug).match(/\{|\]/)) return;
   const articleDir = path.join(articlesPath, `${slug}.mdx`);
   // const source = execSync(`cat ${articleDir}`).toString('utf-8')
 
